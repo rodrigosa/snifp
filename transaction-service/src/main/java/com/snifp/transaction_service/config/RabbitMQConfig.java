@@ -1,6 +1,8 @@
 package com.snifp.transaction_service.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +36,14 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(transactionCreatedQueue)
                 .to(transactionExchange)
                 .with(ROUTING_KEY);
+    }
+
+    @Bean
+    public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+        RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
+        // Força a criação das filas declaradas logo no startup do microsserviço
+        rabbitAdmin.initialize();
+        return rabbitAdmin;
     }
 
 }

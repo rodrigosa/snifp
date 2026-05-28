@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.snifp.transaction_service.domain.Transaction;
 import com.snifp.transaction_service.repository.TransactionRepository;
+import com.snifp.transaction_service.service.TransactionProducer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class TransactionController {
 
     private final TransactionRepository transactionRepository;
+    private final TransactionProducer transactionProducer;
 
     @PostMapping
     public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
@@ -30,6 +32,9 @@ public class TransactionController {
 
         // Salva diretamente no MongoDB Atlas
         Transaction savedTransaction = transactionRepository.save(transaction);
+
+        // Dispara o evento assíncrono para o RabbitMQ
+        transactionProducer.sendTransactionEvent(savedTransaction);
 
         // Retorna o status 201 (Created) com o objeto salvo (já com o ID gerado pelo
         // Mongo)
