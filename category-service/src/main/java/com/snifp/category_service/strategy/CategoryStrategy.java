@@ -37,7 +37,7 @@ public interface CategoryStrategy {
     }
 
     // Estratégia Padrão (Fallback) se nenhuma outra bater
-    @Component
+    // @Component
     public class DefaultStrategy implements CategoryStrategy {
         public boolean matches(String desc) {
             return true;
