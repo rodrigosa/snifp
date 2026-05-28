@@ -1,0 +1,5 @@
+/home/rodrigo/Documentos/Dev/snifp/transaction-service/src/main/java/com/snifp/transaction_service/TransactionServiceApplication.java
+/home/rodrigo/Documentos/Dev/snifp/transaction-service/src/main/java/com/snifp/transaction_service/config/RabbitMQConfig.java
+/home/rodrigo/Documentos/Dev/snifp/transaction-service/src/main/java/com/snifp/transaction_service/controller/TransactionController.java
+/home/rodrigo/Documentos/Dev/snifp/transaction-service/src/main/java/com/snifp/transaction_service/domain/Transaction.java
+/home/rodrigo/Documentos/Dev/snifp/transaction-service/src/main/java/com/snifp/transaction_service/repository/TransactionRepository.java
