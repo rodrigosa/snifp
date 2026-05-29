@@ -10,3 +10,39 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
+
+  transaction-service:
+    build: 
+      context: ${PWD}/transaction-service # Caminho para a pasta do projeto
+      dockerfile: Dockerfile 
+    container_name: transaction-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - rabbitmq # Só liga depois que o RabbitMQ estiver de pé
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+
+  category-service:
+    build: 
+      context: ${PWD}/category-service # Caminho para a pasta do projeto
+      dockerfile: Dockerfile 
+    container_name: category-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+
+  notification-service:
+    build: 
+      context: ${PWD}/notification-service # Caminho para a pasta do projeto
+      dockerfile: Dockerfile 
+    container_name: notification-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
